@@ -1,5 +1,4 @@
-#ifndef PPBAR__ITERATORS_HPP
-#define PPBAR__ITERATORS_HPP
+#pragma once
 
 #include <functional>
 
@@ -35,5 +34,3 @@ protected:
 };
 
 } // close namespace ppbar
-
-#endif // #define PPBAR__ITERATORS_HPP

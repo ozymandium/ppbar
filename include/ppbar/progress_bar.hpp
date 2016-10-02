@@ -77,7 +77,20 @@ public:
      */
     void cleanup();
 
+    /**
+     *  @brief Time of the last refresh
+     */
+    const Time& lastRefresh() const;
+
+    /**
+     *  @brief Time the progress bar was created. It is expected this should be 
+     *  very close to the start of the loop.
+     */
+    const Time& startTime() const;
+
     const T& index() const;
+
+    const T& startIndex() const;
     
     const T& extent() const;
 
@@ -91,9 +104,6 @@ protected:
 
     /// Total number of epochs
     T N_;
-
-    /// 
-    T N_strlen_;
 
     /// The starting epoch
     T n0_;

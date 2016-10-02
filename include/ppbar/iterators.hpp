@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PPBAR__ITERATORS_HPP
+#define PPBAR__ITERATORS_HPP
 
 #include <functional>
 
@@ -23,6 +24,8 @@ public:
     
     const T& operator*() const;
 
+    bool operator!=(const Iterator& other) const;
+
 protected:
 
     ProgressBar* pb_;
@@ -31,10 +34,12 @@ protected:
 
 };
 
-
-bool operator!=(const Iterator& lhs, const Iterator& rhs);
-
-bool operator!=(Iterator& lhs, Iterator& rhs);
-
+// bool operator!=(const Iterator& lhs, const Iterator& rhs);
+// bool operator==(const Iterator& lhs, const Iterator& rhs)
+// {
+//     return true;
+// }
 
 } // close namespace ppbar
+
+#endif // #define PPBAR__ITERATORS_HPP

@@ -27,12 +27,18 @@ const T& Iterator::operator*() const
     return get();
 }
 
-bool operator!=(const Iterator& lhs, const Iterator& rhs)
+
+bool Iterator::operator!=(const Iterator& other) const
 {
-    return lhs.get() != rhs.get();
+    return getter_() != other.get();
 }
 
-bool operator!=(Iterator& lhs, Iterator& rhs)
-{
-    return lhs.get() != rhs.get();
-}
+// bool operator!=(const Iterator& lhs, const Iterator& rhs)
+// {
+//     return lhs.get() != rhs.get();
+// }
+
+// bool operator!=(Iterator& lhs, Iterator& rhs)
+// {
+//     return lhs.get() != rhs.get();
+// }

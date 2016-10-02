@@ -39,11 +39,19 @@ void example3()
 
 void example4()
 {
-    for (auto pbit : ppbar::ProgressBar(100))
+    for (size_t k : ppbar::ProgressBar(100))
     {
         this_thread::sleep_for(chrono::milliseconds(100));
     }
 }
+
+// void example5()
+// {
+//     ppbar::ProgressBar pb1(100);
+//     ppbar::ProgressBar pb2(200);
+
+//     bool asdf = pb1.begin() == pb2.begin();
+// }
 
 int main(int argc, char* argv[])
 {
@@ -57,6 +65,9 @@ int main(int argc, char* argv[])
             break;
         case 3:
             example3();
+            break;
+        case 4:
+            example4();
             break;
         default:
             cout << "Unknown example." << endl;

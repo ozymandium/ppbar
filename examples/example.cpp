@@ -1,6 +1,6 @@
 #include <ppbar/ppbar.hpp>
 #include <thread>
-// #include <chrono>
+#include <chrono>
 
 using namespace std;
 
@@ -17,14 +17,33 @@ void example1()
 
 void example2()
 {
-    ppbar::ProgressBar pb(100);
-    for (int k = 0; k < 100; k++)
+    ppbar::ProgressBar pb(1000);
+    for (int k = 0; k < 1000; k++)
     {
-        pb();
+        ++pb;
+        this_thread::sleep_for(chrono::milliseconds(10));
+    }
+}
+
+
+void example3()
+{
+    ppbar::ProgressBar pb(100);
+    for (int k = 0; k < 100; k += 1)
+    {
+        // cout << "main loop. k = " << k << endl << flush;
+        pb += 1;
         this_thread::sleep_for(chrono::milliseconds(100));
     }
 }
 
+void example4()
+{
+    for (auto pbit : ppbar::ProgressBar(100))
+    {
+        this_thread::sleep_for(chrono::milliseconds(100));
+    }
+}
 
 int main(int argc, char* argv[])
 {
@@ -35,6 +54,9 @@ int main(int argc, char* argv[])
             break;
         case 2:
             example2();
+            break;
+        case 3:
+            example3();
             break;
         default:
             cout << "Unknown example." << endl;

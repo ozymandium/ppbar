@@ -33,10 +33,11 @@ int numDigits(const T& x)
 
 ProgressBar::ProgressBar(size_t N)
 :   N_(N)
-,   n_(0)
+,   N_strlen_(numDigits(N_))
+,   n0_(0)
+,   n_(n0_)
 ,   start_time_(chrono::steady_clock::now())
 ,   last_refresh_(start_time_)
-,   N_strlen_(numDigits(N_))
 {
 
 }
@@ -53,7 +54,7 @@ void ProgressBar::update(T n)
     if (now - last_refresh_ >= REFRESH_PERIOD)
     {
         double total_elapsed = chrono::duration<double>(now - start_time_).count();
-        double time_per_epoch = total_elapsed / (double) n_;
+        double time_per_epoch = total_elapsed / (double) (n_ - n0_);
         double remaining = time_per_epoch * (N_ - n_);
         
         /// reset to beginning of line
@@ -102,12 +103,12 @@ const T& ProgressBar::extent() const
     return N_;
 };
 
-Iterator ProgressBar::begin()
+RangeIterator ProgressBar::begin()
 {
-    return Iterator(this, std::bind(&ProgressBar::index, this));
+    return RangeIterator(this, std::bind(&ProgressBar::index, this));
 };
 
-Iterator ProgressBar::end()
+RangeIterator ProgressBar::end()
 {
-    return Iterator(this, std::bind(&ProgressBar::extent, this));
+    return RangeIterator(this, std::bind(&ProgressBar::extent, this));
 };

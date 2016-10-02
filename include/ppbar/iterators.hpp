@@ -12,19 +12,19 @@ namespace ppbar
 // forward declaration
 class ProgressBar;
 
-class Iterator
+class RangeIterator
 {
 public:
 
-    Iterator(ProgressBar* const pb, std::function<const T& (void)> getter);
+    RangeIterator(ProgressBar* const pb, std::function<const T& (void)> getter);
     
     const T& get() const;
 
-    Iterator& operator++();
+    RangeIterator& operator++();
     
     const T& operator*() const;
 
-    bool operator!=(const Iterator& other) const;
+    bool operator!=(const RangeIterator& other) const;
 
 protected:
 
@@ -33,12 +33,6 @@ protected:
     std::function<const T& (void)> getter_;
 
 };
-
-// bool operator!=(const Iterator& lhs, const Iterator& rhs);
-// bool operator==(const Iterator& lhs, const Iterator& rhs)
-// {
-//     return true;
-// }
 
 } // close namespace ppbar
 

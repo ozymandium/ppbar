@@ -25,13 +25,11 @@ void example2()
     }
 }
 
-
 void example3()
 {
     ppbar::ProgressBar pb(100);
     for (int k = 0; k < 100; k += 1)
     {
-        // cout << "main loop. k = " << k << endl << flush;
         pb += 1;
         this_thread::sleep_for(chrono::milliseconds(100));
     }
@@ -44,14 +42,6 @@ void example4()
         this_thread::sleep_for(chrono::milliseconds(100));
     }
 }
-
-// void example5()
-// {
-//     ppbar::ProgressBar pb1(100);
-//     ppbar::ProgressBar pb2(200);
-
-//     bool asdf = pb1.begin() == pb2.begin();
-// }
 
 int main(int argc, char* argv[])
 {

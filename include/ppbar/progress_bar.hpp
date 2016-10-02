@@ -16,7 +16,7 @@ namespace ppbar
 {
 
 // forward declaration
-class Iterator;
+class RangeIterator;
 
 /**
  *  @brief Class for progress bar...
@@ -35,14 +35,9 @@ public:
     ~ProgressBar();
 
     /**
-     *  @brief set current epoch.
+     *  @brief set current epoch. Beware, going backward is untested.
      */
     void update(T n);
-
-    // /**
-    //  *  @brief Increment by one.
-    //  */
-    // inline void operator()() { update(n_ + 1); };
 
     /**
      *  @brief Increment by one.
@@ -65,9 +60,9 @@ public:
     
     const T& extent() const;
 
-    Iterator begin();
+    RangeIterator begin();
 
-    Iterator end();
+    RangeIterator end();
     
 protected:
     /// how often to update the terminal
@@ -78,6 +73,9 @@ protected:
 
     /// 
     T N_strlen_;
+
+    /// The starting epoch
+    T n0_;
 
     /// The current epoch
     T n_;

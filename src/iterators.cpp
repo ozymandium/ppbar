@@ -4,41 +4,31 @@
 using namespace ppbar;
 
 
-Iterator::Iterator(ProgressBar* const pb, std::function<const T& (void)> getter)
+RangeIterator::RangeIterator(ProgressBar* const pb, std::function<const T& (void)> getter)
 :   pb_(pb)
 ,   getter_(getter)
 {
 
 }
 
-Iterator& Iterator::operator++()
+RangeIterator& RangeIterator::operator++()
 {
-    *pb_ += (T)1;
+    ++(*pb_);
     return *this;
 }
 
-const T& Iterator::get() const
+const T& RangeIterator::get() const
 {
     return getter_();
 }
 
-const T& Iterator::operator*() const
+const T& RangeIterator::operator*() const
 {
     return get();
 }
 
 
-bool Iterator::operator!=(const Iterator& other) const
+bool RangeIterator::operator!=(const RangeIterator& other) const
 {
     return getter_() != other.get();
 }
-
-// bool operator!=(const Iterator& lhs, const Iterator& rhs)
-// {
-//     return lhs.get() != rhs.get();
-// }
-
-// bool operator!=(Iterator& lhs, Iterator& rhs)
-// {
-//     return lhs.get() != rhs.get();
-// }

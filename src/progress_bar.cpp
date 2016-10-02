@@ -7,9 +7,16 @@ using namespace ppbar;
 constexpr chrono::milliseconds ProgressBar::REFRESH_PERIOD;
 
 /// ugly, but faster than doing math.
-int numDigits(const T& x)  
+/// only works for types in the `int` family.
+uint8_t numDigits(T x)  
 {
-    return 
+    uint8_t sz = 0;
+    if (x < 0)
+    {
+        x = -x; // `fabs` / `abs` require knowing the type...
+        sz = 1;
+    }
+    sz +=
         (x < 10 ? 1 : 
         (x < 100 ? 2 : 
         (x < 1000 ? 3 :   
@@ -31,11 +38,36 @@ int numDigits(const T& x)
         19 ))))))))))))))))));  
 }
 
-ProgressBar::ProgressBar(size_t N)
+ProgressBar::ProgressBar(T N)
 :   N_(N)
 ,   N_strlen_(numDigits(N_))
 ,   n0_(0)
 ,   n_(n0_)
+,   dn_(1)
+,   start_time_(chrono::steady_clock::now())
+,   last_refresh_(start_time_)
+{
+
+}
+
+ProgressBar::ProgressBar(T n0, T N)
+:   N_(N)
+,   N_strlen_(numDigits(N_))
+,   n0_(n0)
+,   n_(n0_)
+,   dn_(1)
+,   start_time_(chrono::steady_clock::now())
+,   last_refresh_(start_time_)
+{
+
+}
+
+ProgressBar::ProgressBar(T n0, T N, T dn)
+:   N_(N)
+,   N_strlen_(numDigits(N_))
+,   n0_(n0)
+,   n_(n0_)
+,   dn_(dn)
 ,   start_time_(chrono::steady_clock::now())
 ,   last_refresh_(start_time_)
 {
@@ -78,7 +110,7 @@ void ProgressBar::update(T n)
 
 ProgressBar& ProgressBar::operator++()
 {
-    update(n_ + 1);
+    update(n_ + dn_);
     return *this;
 }
 
@@ -86,6 +118,11 @@ ProgressBar& ProgressBar::operator+=(T dn)
 {
     update(n_ + dn);
     return *this;
+}
+
+const T& ProgressBar::operator()()
+{
+    return n_;
 }
 
 void ProgressBar::cleanup()

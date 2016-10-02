@@ -37,9 +37,25 @@ void example3()
 
 void example4()
 {
-    for (size_t k : ppbar::ProgressBar(100))
+    for (int k : ppbar::ProgressBar(100))
     {
         this_thread::sleep_for(chrono::milliseconds(100));
+    }
+}
+
+void example5()
+{
+    for (int k : ppbar::ProgressBar(-5, 0))
+    {
+        this_thread::sleep_for(chrono::milliseconds(1000));
+    }
+}
+
+void example6()
+{
+    for (int k : ppbar::ProgressBar(-10, 0, 2))
+    {
+        this_thread::sleep_for(chrono::milliseconds(1000));
     }
 }
 
@@ -58,6 +74,11 @@ int main(int argc, char* argv[])
             break;
         case 4:
             example4();
+        case 5:
+            example5();
+            break;
+        case 6:
+            example6();
             break;
         default:
             cout << "Unknown example." << endl;

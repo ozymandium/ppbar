@@ -28,10 +28,26 @@ public:
     typedef chrono::time_point<chrono::steady_clock> Time;
 
     /**
-     *  @param N total number of epochs.
+     *  @param N total number of epochs, starting from zero.
      */
     ProgressBar(T N);
 
+    /**
+     *  @param n0 starting index
+     *  @param N end epoch (right side open ended interval)
+     */
+    ProgressBar(T n0, T N);
+
+    /**
+     *  @param n0 starting index
+     *  @param N end epoch (right side open ended interval)
+     *  @param dn default increment
+     */
+    ProgressBar(T n0, T N, T dn);
+
+    /**
+     *  @brief Perform clean-up on exit.
+     */
     ~ProgressBar();
 
     /**
@@ -48,6 +64,11 @@ public:
      *  @brief Increment by given number of epochs.
      */
     ProgressBar& operator+=(T dn);
+
+    /**
+     *  @brief Get a reference to the current index. Sugar for `index()`.
+     */
+    const T& operator()();
 
     /**
      *  @brief just prints a newline so the next terminal print is not dangling.
@@ -79,6 +100,9 @@ protected:
 
     /// The current epoch
     T n_;
+
+    /// The default increment
+    T dn_;
 
     /// Beginning 
     const Time start_time_;

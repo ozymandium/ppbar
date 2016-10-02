@@ -6,7 +6,7 @@
 namespace ppbar
 {
 
-typedef size_t T;
+typedef int T;
 
 
 

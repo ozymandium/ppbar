@@ -6,6 +6,9 @@
 #include <cstdio>
 #include <cmath>
 #include <iomanip>
+#include <vector>
+#include <memory>
+#include <utility>
 
 #include "common.hpp"
 
@@ -17,6 +20,8 @@ namespace ppbar
 
 // forward declaration
 class RangeIterator;
+class Widget;
+enum class WidgetType;
 
 /**
  *  @brief Class for progress bar...
@@ -28,9 +33,13 @@ public:
     typedef chrono::time_point<chrono::steady_clock> Time;
 
     /**
-     *  @param N total number of epochs, starting from zero.
+     *  @brief The full constructor. All other constructors send default arguments
+     *  here where necessary.
+     *  @param n0 starting index
+     *  @param N end epoch (right side open ended interval)
+     *  @param dn default increment
      */
-    ProgressBar(T N);
+    ProgressBar(T n0, T N, T dn, const initializer_list<WidgetType&>& widgets);
 
     /**
      *  @param n0 starting index
@@ -39,11 +48,9 @@ public:
     ProgressBar(T n0, T N);
 
     /**
-     *  @param n0 starting index
-     *  @param N end epoch (right side open ended interval)
-     *  @param dn default increment
+     *  @param N total number of epochs, starting from zero.
      */
-    ProgressBar(T n0, T N, T dn);
+    ProgressBar(T N);
 
     /**
      *  @brief Perform clean-up on exit.
@@ -119,6 +126,8 @@ protected:
 
     /// when the screen was last written
     Time last_refresh_;
+
+    vector<shared_ptr<Widget>> widgets_;
 
 };
 

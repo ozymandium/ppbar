@@ -7,38 +7,30 @@ using namespace ppbar;
 
 constexpr chrono::milliseconds ProgressBar::REFRESH_PERIOD;
 
-ProgressBar::ProgressBar(T N)
+ProgressBar::ProgressBar(T n0, T N, T dn, const initializer_list<WidgetType&>& widgets = {WidgetType::Counter, WidgetType::Timer})
 :   N_(N)
-// ,   N_strlen_(numDigits(N_))
-,   n0_(0)
-,   n_(n0_)
-,   dn_(1)
-,   start_time_(chrono::steady_clock::now())
-,   last_refresh_(start_time_)
-{
-
-}
-
-ProgressBar::ProgressBar(T n0, T N)
-:   N_(N)
-// ,   N_strlen_(numDigits(N_))
-,   n0_(n0)
-,   n_(n0_)
-,   dn_(1)
-,   start_time_(chrono::steady_clock::now())
-,   last_refresh_(start_time_)
-{
-
-}
-
-ProgressBar::ProgressBar(T n0, T N, T dn)
-:   N_(N)
-// ,   N_strlen_(numDigits(N_))
 ,   n0_(n0)
 ,   n_(n0_)
 ,   dn_(dn)
 ,   start_time_(chrono::steady_clock::now())
 ,   last_refresh_(start_time_)
+{
+    for (WidgetType& wt : widgets)
+    {
+        widgets_.push_back(getWidget(wt, this));
+    }
+    // widgets_.push_back(unique_ptr<Counter>(new Counter(this)));
+    // widgets_.push_back(unique_ptr<Timer>(new Timer(this)));
+}
+
+ProgressBar::ProgressBar(T n0, T N)
+:   ProgressBar(n0, N, 1)
+{
+
+}
+
+ProgressBar::ProgressBar(T N)
+:   ProgressBar(0, N)
 {
 
 }
@@ -59,18 +51,13 @@ void ProgressBar::update(T n)
         /// reset to beginning of line
         printf("\r");
 
-        // epoch counter
-        Counter counter(this);
-        printf(counter.refresh());
+        for (auto& wp : widgets_)
+        {
+            printf(wp->refresh());
+            printf(" ");
+        }
 
-        // space between widgets
-        printf(" ");
-        
-        Timer timer(this);
-        printf(timer.refresh());
-
-        // space for cursor and flush
-        cout << " " << flush;
+        cout << flush;
 
     }
 }

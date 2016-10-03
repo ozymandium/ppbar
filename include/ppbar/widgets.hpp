@@ -1,8 +1,6 @@
 #pragma once
 
 #include <string>
-#include <exception>
-#include <memory>
 
 #include "common.hpp"
 
@@ -12,14 +10,6 @@ namespace ppbar
 
 // forward declaration
 class ProgressBar;
-
-enum class WidgetType
-{
-    Counter,
-    Timer,
-};
-
-shared_ptr<Widget> getWidget(WidgetType type, const ProgressBar* const);
 
 class Widget
 {
@@ -33,19 +23,19 @@ protected:
 };
 
 
-class CounterWidget : public Widget
+class Counter : public Widget
 {
 public:
-    CounterWidget(const ProgressBar* const pb);
+    Counter(const ProgressBar* const pb);
     virtual const char* refresh();
 protected:
     size_t N_strlen_;
 };
 
-class TimerWidget : public Widget
+class Timer : public Widget
 {
 public:
-    TimerWidget(const ProgressBar* const pb);
+    Timer(const ProgressBar* const pb);
     virtual const char* refresh();
 };
 

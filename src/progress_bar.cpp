@@ -7,7 +7,7 @@ using namespace ppbar;
 
 constexpr chrono::milliseconds ProgressBar::REFRESH_PERIOD;
 
-ProgressBar::ProgressBar(T n0, T N, T dn, const initializer_list<WidgetType&>& widgets = {WidgetType::Counter, WidgetType::Timer})
+ProgressBar::ProgressBar(T n0, T N, T dn)
 :   N_(N)
 ,   n0_(n0)
 ,   n_(n0_)
@@ -15,12 +15,8 @@ ProgressBar::ProgressBar(T n0, T N, T dn, const initializer_list<WidgetType&>& w
 ,   start_time_(chrono::steady_clock::now())
 ,   last_refresh_(start_time_)
 {
-    for (WidgetType& wt : widgets)
-    {
-        widgets_.push_back(getWidget(wt, this));
-    }
-    // widgets_.push_back(unique_ptr<Counter>(new Counter(this)));
-    // widgets_.push_back(unique_ptr<Timer>(new Timer(this)));
+    widgets_.push_back(unique_ptr<Counter>(new Counter(this)));
+    widgets_.push_back(unique_ptr<Timer>(new Timer(this)));
 }
 
 ProgressBar::ProgressBar(T n0, T N)

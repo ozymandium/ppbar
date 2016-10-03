@@ -39,7 +39,7 @@ public:
      *  @param N end epoch (right side open ended interval)
      *  @param dn default increment
      */
-    ProgressBar(T n0, T N, T dn, const initializer_list<WidgetType&>& widgets);
+    ProgressBar(T n0, T N, T dn);
 
     /**
      *  @param n0 starting index
@@ -56,6 +56,12 @@ public:
      *  @brief Perform clean-up on exit.
      */
     ~ProgressBar();
+
+    /**
+     *  @brief set the formatting.
+     */
+    template<typename...W>
+    void format(string fmt);
 
     /**
      *  @brief set current epoch. Beware, going backward is untested.
@@ -127,7 +133,7 @@ protected:
     /// when the screen was last written
     Time last_refresh_;
 
-    vector<shared_ptr<Widget>> widgets_;
+    vector<unique_ptr<Widget>> widgets_;
 
 };
 

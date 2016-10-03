@@ -35,45 +35,32 @@ uint8_t numDigits(T x)
         19 ))))))))))))))))));  
 }
 
-Widget getWidget(WidgetType type, const ProgressBar* const pb)
-{
-    switch (type)
-    {
-        case Counter:
-            return CounterWidget(pb);
-        case Timer:
-            return TimerWidget(pb);
-        default:
-            throw std::exception();
-    }
-};
-
 Widget::Widget(const ProgressBar* const pb)
 :   pb_(pb)
 {
 
 }
 
-CounterWidget::CounterWidget(const ProgressBar* const pb)
+Counter::Counter(const ProgressBar* const pb)
 :   Widget(pb)
 ,   N_strlen_(numDigits(pb->extent()))
 {
 
 }
 
-const char* CounterWidget::refresh()
+const char* Counter::refresh()
 {
     sprintf(str_, "%*i / %i", N_strlen_, pb_->index(), pb_->extent());
     return str_;
 }
 
-TimerWidget::TimerWidget(const ProgressBar* const pb)
+Timer::Timer(const ProgressBar* const pb)
 :   Widget(pb)
 {
 
 }
 
-const char* TimerWidget::refresh()
+const char* Timer::refresh()
 {
     // by the time this function has been called, `pb_::last_refresh_` has been 
     // updated.

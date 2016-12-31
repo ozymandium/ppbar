@@ -21,10 +21,6 @@ using namespace std;
 namespace ppbar
 {
 
-// // forward declaration
-// class RangeIterator;
-// class Widget;
-
 typedef chrono::time_point<chrono::steady_clock> Time;
 
 /// how often to update the terminal

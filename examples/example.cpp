@@ -83,6 +83,7 @@ int main(int argc, char* argv[])
             break;
         case 4:
             example4();
+            break;
         case 5:
             example5();
             break;

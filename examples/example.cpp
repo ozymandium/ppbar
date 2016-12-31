@@ -7,7 +7,7 @@ using namespace std;
 
 void example1()
 {
-    ppbar::ProgressBar pb(200);
+    ppbar::ProgressBar<ppbar::Counter, ppbar::ETA> pb(200);
     for (int k = 0; k < 200; k += 2)
     {
         pb.update(k);
@@ -17,7 +17,7 @@ void example1()
 
 void example2()
 {
-    ppbar::ProgressBar pb(1000);
+    ppbar::ProgressBar<ppbar::Counter, ppbar::ETA> pb(1000);
     for (int k = 0; k < 1000; k++)
     {
         ++pb;
@@ -27,7 +27,7 @@ void example2()
 
 void example3()
 {
-    ppbar::ProgressBar pb(100);
+    ppbar::ProgressBar<ppbar::Counter, ppbar::ETA> pb(100);
     for (int k = 0; k < 100; k += 1)
     {
         pb += 1;
@@ -37,7 +37,7 @@ void example3()
 
 void example4()
 {
-    for (int k : ppbar::ProgressBar(100))
+    for (int k : ppbar::ProgressBar<ppbar::Counter, ppbar::ETA>(100))
     {
         this_thread::sleep_for(chrono::milliseconds(100));
     }
@@ -45,7 +45,7 @@ void example4()
 
 void example5()
 {
-    for (int k : ppbar::ProgressBar(-5, 0))
+    for (int k : ppbar::ProgressBar<ppbar::Counter, ppbar::ETA>(-5, 0))
     {
         this_thread::sleep_for(chrono::milliseconds(1000));
     }
@@ -53,7 +53,7 @@ void example5()
 
 void example6()
 {
-    for (int k : ppbar::ProgressBar(-10, 0, 2))
+    for (int k : ppbar::ProgressBar<ppbar::Counter, ppbar::ETA>(-10, 0, 2))
     {
         this_thread::sleep_for(chrono::milliseconds(1000));
     }
@@ -61,18 +61,7 @@ void example6()
 
 void example7()
 {
-    ppbar::ProgressBar pb(0, 100, 1);
-    pb.format<ppbar::Counter, ppbar::ETA>();
-    for (int k : pb)
-    {
-        this_thread::sleep_for(chrono::milliseconds(100));
-    }
-}
-
-void example8()
-{
-    ppbar::ProgressBar pb(0, 3675, 1); // 1 hr, 1 minute, 30 sec
-    pb.format<ppbar::Counter, ppbar::ETA>();
+    ppbar::ProgressBar<ppbar::Counter, ppbar::ETA> pb(0, 3675, 1); // 1 hr, 1 minute, 30 sec
     for (int k : pb)
     {
         this_thread::sleep_for(chrono::milliseconds(1000));
@@ -103,9 +92,6 @@ int main(int argc, char* argv[])
         case 7:
             example7();
             break;  
-        case 8:
-            example8();
-            break;
         default:
             cout << "Unknown example." << endl;
             break;

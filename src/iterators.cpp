@@ -4,7 +4,7 @@
 using namespace ppbar;
 
 
-RangeIterator::RangeIterator(ProgressBar* const pb, std::function<const T& (void)> getter)
+RangeIterator::RangeIterator(ProgressBarBase* const pb, std::function<const T& (void)> getter)
 :   pb_(pb)
 ,   getter_(getter)
 {

@@ -35,13 +35,13 @@ uint8_t numDigits(T x)
         19 ))))))))))))))))));  
 }
 
-Widget::Widget(const ProgressBar* const pb)
+Widget::Widget(const ProgressBarBase* const pb)
 :   pb_(pb)
 {
 
 }
 
-Counter::Counter(const ProgressBar* const pb)
+Counter::Counter(const ProgressBarBase* const pb)
 :   Widget(pb)
 ,   N_strlen_(numDigits(pb->extent()))
 {
@@ -54,7 +54,7 @@ const char* Counter::refresh()
     return str_;
 }
 
-ETA::ETA(const ProgressBar* const pb)
+ETA::ETA(const ProgressBarBase* const pb)
 :   Widget(pb)
 {
 

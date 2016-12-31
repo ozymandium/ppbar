@@ -9,16 +9,16 @@ namespace ppbar
 {
 
 // forward declaration
-class ProgressBar;
+class ProgressBarBase;
 
 class Widget
 {
 public:
-    Widget(const ProgressBar* const pb);
+    Widget(const ProgressBarBase* const pb);
     ~Widget() = default;
     virtual const char* refresh() = 0;
 protected:
-    const ProgressBar* const pb_;
+    const ProgressBarBase* const pb_;
     char str_[1024];
 };
 
@@ -26,7 +26,7 @@ protected:
 class Counter : public Widget
 {
 public:
-    Counter(const ProgressBar* const pb);
+    Counter(const ProgressBarBase* const pb);
     virtual const char* refresh();
 protected:
     size_t N_strlen_;
@@ -35,7 +35,7 @@ protected:
 class ETA : public Widget
 {
 public:
-    ETA(const ProgressBar* const pb);
+    ETA(const ProgressBarBase* const pb);
     virtual const char* refresh();
 };
 

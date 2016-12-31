@@ -9,13 +9,13 @@ namespace ppbar
 {
 
 // forward declaration
-class ProgressBar;
+class ProgressBarBase;
 
 class RangeIterator
 {
 public:
 
-    RangeIterator(ProgressBar* const pb, std::function<const T& (void)> getter);
+    RangeIterator(ProgressBarBase* const pb, std::function<const T& (void)> getter);
     
     const T& get() const;
 
@@ -27,7 +27,7 @@ public:
 
 protected:
 
-    ProgressBar* pb_;
+    ProgressBarBase* pb_;
 
     std::function<const T& (void)> getter_;
 

@@ -61,7 +61,7 @@ public:
      *  @brief set the formatting.
      */
     template<typename...W>
-    void format(string fmt);
+    void format();
 
     /**
      *  @brief set current epoch. Beware, going backward is untested.
@@ -137,4 +137,13 @@ protected:
 
 };
 
+template<typename ...W>
+void ProgressBar::format()
+{
+    widgets_.clear();
+    [](...){ }((widgets_.push_back(std::unique_ptr<W>(new W(this))), 0)...);
+}
+
+
 } // close namespace ppbar
+

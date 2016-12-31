@@ -59,6 +59,16 @@ void example6()
     }
 }
 
+void example7()
+{
+    ppbar::ProgressBar pb(0, 100, 1);
+    pb.format<ppbar::Counter, ppbar::Timer>();
+    for (int k : pb)
+    {
+        this_thread::sleep_for(chrono::milliseconds(100));
+    }
+}
+
 int main(int argc, char* argv[])
 {
     switch (atoi(argv[1]))
@@ -80,6 +90,9 @@ int main(int argc, char* argv[])
         case 6:
             example6();
             break;
+        case 7:
+            example7();
+            break;  
         default:
             cout << "Unknown example." << endl;
             break;

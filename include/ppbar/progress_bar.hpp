@@ -113,7 +113,7 @@ public:
     
 protected:
     /// how often to update the terminal
-    static constexpr chrono::milliseconds REFRESH_PERIOD{250};
+    static constexpr chrono::milliseconds REFRESH_PERIOD{1000};
 
     /// Total number of epochs
     T N_;

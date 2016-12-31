@@ -50,23 +50,26 @@ Counter::Counter(const ProgressBar* const pb)
 
 const char* Counter::refresh()
 {
-    sprintf(str_, "%*i / %i", N_strlen_, pb_->index(), pb_->extent());
+    sprintf(str_, "%*i/%i", N_strlen_, pb_->index(), pb_->extent());
     return str_;
 }
 
-Timer::Timer(const ProgressBar* const pb)
+ETA::ETA(const ProgressBar* const pb)
 :   Widget(pb)
 {
 
 }
 
-const char* Timer::refresh()
+const char* ETA::refresh()
 {
     // by the time this function has been called, `pb_::last_refresh_` has been 
     // updated.
     double total_elapsed = chrono::duration<double>(pb_->lastRefresh() - pb_->startTime()).count();
-    double time_per_epoch = total_elapsed / (double) (pb_->index() - pb_->startIndex());
-    double remaining = time_per_epoch * (pb_->extent() - pb_->index());
-    sprintf(str_, "( %.1f / %.1f )", total_elapsed, remaining);
+    double remaining_sec = total_elapsed / (double) (pb_->index() - pb_->startIndex()) 
+                           * (pb_->extent() - pb_->index());
+    double remaining_min = remaining_sec / 60.0;
+    double remaining_hr = remaining_min / 60.0;
+    sprintf(str_, "%02u:%02u:%02u", 
+        (uint)remaining_hr%60, (uint)remaining_min%60, (uint)remaining_sec%60);
     return str_;
 }

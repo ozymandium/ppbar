@@ -13,10 +13,11 @@ ProgressBar::ProgressBar(T n0, T N, T dn)
 ,   n_(n0_)
 ,   dn_(dn)
 ,   start_time_(chrono::steady_clock::now())
-,   last_refresh_(start_time_)
+,   last_refresh_(start_time_ - REFRESH_PERIOD)
 {
-    widgets_.push_back(unique_ptr<Counter>(new Counter(this)));
-    widgets_.push_back(unique_ptr<Timer>(new Timer(this)));
+    // widgets_.push_back(unique_ptr<Counter>(new Counter(this)));
+    // widgets_.push_back(unique_ptr<ETA>(new ETA(this)));
+    update(n_);
 }
 
 ProgressBar::ProgressBar(T n0, T N)

@@ -32,10 +32,10 @@ protected:
     size_t N_strlen_;
 };
 
-class Timer : public Widget
+class ETA : public Widget
 {
 public:
-    Timer(const ProgressBar* const pb);
+    ETA(const ProgressBar* const pb);
     virtual const char* refresh();
 };
 

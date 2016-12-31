@@ -62,10 +62,20 @@ void example6()
 void example7()
 {
     ppbar::ProgressBar pb(0, 100, 1);
-    pb.format<ppbar::Counter, ppbar::Timer>();
+    pb.format<ppbar::Counter, ppbar::ETA>();
     for (int k : pb)
     {
         this_thread::sleep_for(chrono::milliseconds(100));
+    }
+}
+
+void example8()
+{
+    ppbar::ProgressBar pb(0, 3675, 1); // 1 hr, 1 minute, 30 sec
+    pb.format<ppbar::Counter, ppbar::ETA>();
+    for (int k : pb)
+    {
+        this_thread::sleep_for(chrono::milliseconds(1000));
     }
 }
 
@@ -93,6 +103,9 @@ int main(int argc, char* argv[])
         case 7:
             example7();
             break;  
+        case 8:
+            example8();
+            break;
         default:
             cout << "Unknown example." << endl;
             break;

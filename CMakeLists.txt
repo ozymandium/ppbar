@@ -7,6 +7,6 @@ add_executable(example
     examples/example.cpp
 )
 
-# install(TARGETS ppbar
-#     LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-# )
+install(DIRECTORY include/ppbar
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/include
+)

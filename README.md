@@ -1,7 +1,7 @@
 # ppbar
 Handy progress bar for C++11
 
-Supports range iterators similar to Boost `irange`:
+Supports range iterators similar to Boost's `irange`:
 
     for (int k : ppbar::ProgressBar(0, 100, 1) {
       doWork(k);

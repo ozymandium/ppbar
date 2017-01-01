@@ -37,7 +37,7 @@ void example3()
 
 void example4()
 {
-    for (int k : ppbar::ProgressBar<ppbar::Counter, ppbar::ETA>(100))
+    for (int k : ppbar::ProgressBar<ppbar::Counter, ppbar::ETA, ppbar::Scale<100>>(100))
     {
         this_thread::sleep_for(chrono::milliseconds(100));
     }
@@ -61,7 +61,7 @@ void example6()
 
 void example7()
 {
-    ppbar::ProgressBar<ppbar::Counter, ppbar::ETA> pb(0, 3675, 1); // 1 hr, 1 minute, 30 sec
+    ppbar::ProgressBar<ppbar::Counter, ppbar::ETA, ppbar::Scale<100>> pb(0, 3675, 1); // 1 hr, 1 minute, 30 sec
     for (int k : pb)
     {
         this_thread::sleep_for(chrono::milliseconds(1000));

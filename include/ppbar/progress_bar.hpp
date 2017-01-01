@@ -2,7 +2,6 @@
 
 #include <iostream> 
 #include <string> 
-#include <chrono>
 #include <cstdio>
 #include <cmath>
 #include <iomanip>
@@ -13,6 +12,7 @@
 #include "common.hpp"
 #include "iterators.hpp"
 #include "widgets.hpp"
+// #include "progress_bar_base.hpp"
 
 
 using namespace std;
@@ -20,35 +20,6 @@ using namespace std;
 
 namespace ppbar
 {
-
-typedef chrono::time_point<chrono::steady_clock> Time;
-
-/// how often to update the terminal
-constexpr chrono::milliseconds REFRESH_PERIOD{1000};
-
-class ProgressBarBase
-{
-public:
-
-    // ProgressBar(T n0, T N, T dn);
-    // ProgressBar(T n0, T N);
-    // ProgressBar(T N);
-    // ~ProgressBar();
-    virtual void update(T n) = 0;
-    virtual ProgressBarBase& operator++() = 0;
-    virtual ProgressBarBase& operator+=(T dn) = 0;
-    virtual const T& operator()() = 0;
-    virtual void cleanup() = 0;
-    virtual const Time& lastRefresh() const = 0;
-    virtual const Time& startTime() const = 0;
-    virtual const T& index() const = 0;
-    virtual const T& startIndex() const = 0;
-    virtual const T& extent() const = 0;
-    virtual RangeIterator begin() = 0;
-    virtual RangeIterator end() = 0;
-protected:
-
-};
 
 /**
  *  @brief Class for progress bar...
@@ -166,7 +137,7 @@ ProgressBar<W...>::ProgressBar(T n0, T N, T dn)
 ,   start_time_(chrono::steady_clock::now())
 ,   last_refresh_(start_time_ - REFRESH_PERIOD)
 {
-    [](...){ }((widgets_.push_back(std::unique_ptr<W>(new W(this))), 0)...);
+    [](...){ }((widgets_.insert(widgets_.begin(), std::unique_ptr<W>(new W(this))), 0)...);
     update(n_);
 };
 
